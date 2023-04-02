@@ -1,0 +1,192 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Playfair+Display:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Maven+Pro&family=Playfair+Display:wght@700&display=swap');
+
+body{
+    font-family: 'Maven Pro', sans-serif;
+
+}
+
+.callout{
+    font-family: 'Marcellus', serif;
+ 
+    
+}
+
+.body-text{
+    padding-right: 15%;
+    padding-left: 15%;
+
+}
+
+.custom-nav-bg{
+    background-color: rgb(255, 255, 255);
+}
+
+.text-border{
+    text-shadow: 3px 3px 4px rgb(0, 0, 0);
+}
+.hero-image-box{
+    background-color: rgb(83, 81, 81);
+    background-image: linear-gradient(to bottom, rgba(2, 2, 2, 0.158),rgba(0, 0, 0, 0.288), rgb(0, 0, 0)), url("../img/IMG_E3704.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 15%;
+    padding-bottom: 10%;
+    padding-right: 10%;
+    padding-left: 10%;
+    color: white;
+    text-align: center;
+    min-height: 350px;
+   
+}
+
+.contact-image-box{
+    background-color: rgb(83, 81, 81);
+    background-image: linear-gradient(to bottom, rgba(2, 2, 2, 0.158),rgba(0, 0, 0, 0.288), rgb(0, 0, 0)), url("../img/IMG_3608.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 15%;
+    padding-bottom: 10%;
+    padding-right: 10%;
+    padding-left: 10%;
+    color: white;
+    text-align: center;
+    min-height: 350px;
+
+}
+
+
+
+.logo-erb{
+    height:60% ;
+    width: 40%;
+    margin-bottom: 30px;
+
+}
+
+
+
+.logo-image{
+    height:auto ;
+    width: auto;
+    padding: 1rem;
+    border-radius: 100%;
+    margin-top: -10rem;
+    background-color: #ffffff;
+    
+    
+}
+
+
+@media only screen and (max-width: 600px) {
+    .logo-image{
+        height:250px;
+        width: 250px;
+        padding: 1rem;
+        border-radius: 100%;
+        margin-top:-8rem;
+        background-color: #ffffff;
+        
+        
+    }
+  }
+
+
+
+#circle-logo
+{
+    height: 350px;
+    width: 350px;
+
+  background-image:url("../img/templar_cross_white-bkg.png"),linear-gradient(to bottom, rgb(255, 255, 255), rgb(255, 255, 255));
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-top: -175px;
+  border-radius: 100%;
+
+}
+
+.nav-link{
+    color: rgb(158, 3, 3);
+}
+
+.custom-bcg{
+    background-color:#F8F9FA;
+}
+
+.hodnoty{
+    min-height: 250px;
+}
+
+.custom-button {
+    background-color: #a70a0a00; /* Green */
+    border-radius:0px ;
+    border-color: #D6AD60;
+    color: #D6AD60;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    font-family: 'Marcellus', serif;
+  }
+
+
+.custom-button-article {
+    background-color: #a70a0a00; /* Green */
+    border-radius:0px ;
+    border-color: #D6AD60;
+    color: #D6AD60;
+    
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    
+    font-family: 'Marcellus', serif;
+  }
+
+  .custom-accordrion {
+    font-family: 'Playfair Display', serif;
+    
+  }
+
+
+  .custom-accordrion-button {
+
+    font-size: 1.2rem;
+
+  }
+
+.card{
+    border: none;
+  }
+
+/* Solid border */
+hr.solid {
+    border-top: 1px solid #D6AD60;
+
+  }
+
+.list-group-item{
+
+    padding: .7rem;
+}
+
+.event-date{
+    font-family: 'Playfair Display', serif;
+
+
+}
+
+.sign-in{
+    border: 1px solid #D6AD60;
+}
+
+a-nav:hover {
+    border-bottom: 2px solid #b90918; 
+}

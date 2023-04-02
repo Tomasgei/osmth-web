@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <!--Header image -->
+  <div class="row contact-image-box">
+
+  </div>
+
+  <div class="container-sm text-center">
+    <div class="col-sm-12 ">
+      
+      <!--<img class="logo-image img-fluid" src="img/templar_cross_white-bkg.png" class="rounded" alt="...">-->
+      <img src="{% static '/img/templar_cross_white-bkg.png' %}" class="logo-image" alt="...">
+    </div>
+  </div>
+  <!--circle logo  
+  <div class="container" id="circle-logo">
+  </div>-->
+
+  <div class="container py-4 ">
+    <div class="row">
+      <h1 class="display-4 callout text-center py-4">Kontakt</h1>
+      <div class="col-md-6 py-4">
+        <!-- Bootstrap 5 starter form -->
+        <form id="contactForm">
+
+          <!-- Name input -->
+          <div class="mb-3">
+            <label class="form-label" for="name">Jméno</label>
+            <input class="form-control" id="name" type="text" placeholder="Napište své jméno" />
+          </div>
+
+          <!-- Email address input -->
+          <div class="mb-3">
+            <label class="form-label" for="emailAddress">Emailová adresa</label>
+            <input class="form-control" id="emailAddress" type="email" placeholder="Vyplňte prosím vaší emailovou adresu" />
+          </div>
+
+          <!-- Message input -->
+          <div class="mb-3">
+            <label class="form-label" for="message">Text zprávy</label>
+            <textarea class="form-control" id="message" type="text" placeholder="Co máte na srdci?" style="height: 10rem;"></textarea>
+          </div>
+
+          <!-- Form submit button -->
+          <div class="d-grid">
+            <button class="btn btn-danger custom-button btn-lg shadow" type="submit">Odeslat zprávu</button>
+          </div>
+        </form>
+
+      </div>
+      <div class="col-md-6 py-4 text-center">
+        <img src="{% static '/img/znak řádu osmth.png' %}" class="logo-erb text-center" alt="...">
+        <h5 class="body-text">Ordo Supremus Militaris Templi Hierosolymitani Ctechi z.ú.</h5>
+        <p class=" body-text"> Londýnská 59, 120 00, Srbeč</p>
+        <p class=" body-text">Telefon: 734 254 433</p>
+        <p class=" body-text">Email: info@osmth.cz</p>
+        
+      </div>
+    </div>
+  </div>
+ 
+{% endblock content %}
