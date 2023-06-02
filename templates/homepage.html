@@ -199,32 +199,21 @@
 <section class="bg-white py-10">
   <div class="container ">
     <div class="my-4 "><h2 class="callout display-5 text-center">Co se u nás děje...</h2></div>
-
     <div class="row">
-      <div class=" "><h3 class="callout">Aktuálně</h3></div>
-      <div class="col-md ">
-        <div class="card mb-4 shadow">
-          <a href="#!"><img class="card-img-top" src="{% static 'img/Navalis_templaři.jpg' %}" alt="..."></a>
-          <div class="card-body">
-              <div class="small text-muted">May 16, 2023</div>
-              <h2 class="card-title h4">Templáři se účastnili Navalis 2023</h2>
-              <p class="card-text">Naši členové se poprvé zůčastnili slavnostního svatojánského průvodu jako ochranka..</p>
-              <a class="btn custom-button-article btn-danger" href="#!">Číst dál →</a>
+        <div class=" "><h3 class="callout">Aktuálně</h3></div>
+        {% for a in articles %}
+        <div class="col-md ">
+          <div class="card mb-4 shadow">
+            <a href="#!"><img class="card-img-top" src="{{a.image.url}}" alt="{{a.title}}"></a>
+            <div class="card-body">
+                <div class="small text-muted">{{a.pub_date}}</div>
+                <h2 class="card-title h4">{{a.title}}</h2>
+                <p class="card-text">{{a.content |truncatechars:120 }}</p>
+                <a class="btn custom-button-article btn-danger" href="{% url 'web:blog_detail' a.slug %}">Číst dál →</a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="col-md">
-        <div class="card mb-4 shadow">
-          <a href="#!"><img class="card-img-top" src="{% static 'img/IMG_3818.png' %}" alt="..."></a>
-          <div class="card-body">
-              <div class="small text-muted">January 1, 2023</div>
-              <h2 class="card-title h4">2. Setkání přátel řádu</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-              <a class="btn custom-button-article btn-danger" href="#!">Číst dál →</a>
-          </div>
-        </div>
-      </div>
+        {% endfor %}
 
       <div class="col-md">
         <div class="list-group bg-light">
