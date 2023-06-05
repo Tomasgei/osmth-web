@@ -213,17 +213,20 @@
             </div>
           </div>
         </div>
-        {% endfor %}
-
+        {% endfor %}        
       <div class="col-md">
         <div class="list-group bg-light">
+          {% for e in events %}
           <a href="#" class="list-group-item">
             <div class="col-md">
-              <div class="event-date"> <span>15</span><p>Května</p></div>
+              <div class="event-date"> <span></span><p>{{e.event_date}}</p></div>
             </div>
-            <h4 class="list-group-item-heading">Svatojánské Slavnosti 2023 (Navalis)</h4>
-            <p class="list-group-item-text ">Účast v průvodu jako ochranka</p>
+            <h4 class="list-group-item-heading">{{e.title}}</h4>
+            <p class="list-group-item-text ">{{e.content}}</p>
           </a>
+          {% endfor %}  
+
+
           <a href="#" class="list-group-item">
             <div class="event-date"> <span>2-3</span><p>Červen</p></div>
             <h4 class="list-group-item-heading">Pasování nových zborjnošů a rytířů</h4>

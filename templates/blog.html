@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="bg-white py-10">
+    <div class="container ">
+        <div class="my-4 "><h2 class="callout display-5 text-center">Blog</h2></div>
+           <!-- Nested row for non-featured blog posts-->
+           <div class="row mt-3">
+            {% for a in articles %}
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100 shadow border-0">
+                    {% if a.image %}
+                    <img class="card-img-top" src={{a.image.url}} alt="..">
+                    {% else %}
+                    <img class="card-img-top" src="../media/images/default.jpg" alt="..">
+                    {%endif %}
+                    <div class="card-body p-4">
+                        <a class="text-decoration-none link-dark stretched-link" href="{% url 'web:blog_detail' a.slug %}"><div class="h5 card-title mb-3">{{ a.title }}</div></a>
+                        <p class="card-text mb-0">{{a.content |truncatechars:120 }}</p>
+                    </div>
+                    <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                        <div class="d-flex align-items-end justify-content-between">
+                            <a class="btn custom-button-article btn-danger text-right" href="{% url 'web:blog_detail' a.slug %}">Číst dál →</a>
+                            <div class="d-flex align-items-center">
+                                <div class="small">
+                                    <div class="text-muted">{{a.pub_date}}</div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endfor %}
+</section>
+{% endblock content %}
