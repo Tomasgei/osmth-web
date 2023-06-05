@@ -204,7 +204,7 @@
         {% for a in articles %}
         <div class="col-md ">
           <div class="card mb-4 shadow">
-            <a href="#!"><img class="card-img-top" src="{{a.image.url}}" alt="{{a.title}}"></a>
+            <a href="#!"><img class="card-img-top blg-img" src="{{a.image.url}}" alt="{{a.title}}"></a>
             <div class="card-body">
                 <div class="small text-muted">{{a.pub_date}}</div>
                 <h2 class="card-title h4">{{a.title}}</h2>
@@ -225,22 +225,7 @@
             <p class="list-group-item-text ">{{e.content}}</p>
           </a>
           {% endfor %}  
-
-
-          <a href="#" class="list-group-item">
-            <div class="event-date"> <span>2-3</span><p>Červen</p></div>
-            <h4 class="list-group-item-heading">Pasování nových zborjnošů a rytířů</h4>
-            <p class="list-group-item-text">Náš kostel v Srbči, akce je zčásti veřejná</p>
-          </a>
-          <a href="#" class="list-group-item">
-            <div class="event-date"> <span>20</span><p>Únor</p></div>
-            <h4 class="list-group-item-heading">Podpis smlouvy o správě kostela v Srbči</h4>
-            <p class="list-group-item-text"></p>
-          </a>
-        </div> 
     </div>
-
-
   </div>
 </section>
 

@@ -11,9 +11,9 @@
                 <div class="col-lg-6 mb-4">
                     <div class="card h-100 shadow border-0">
                     {% if a.image %}
-                    <img class="card-img-top" src={{a.image.url}} alt="..">
+                    <img class="card-img-top blg-img" src={{a.image.url}} alt="..">
                     {% else %}
-                    <img class="card-img-top" src="../media/images/default.jpg" alt="..">
+                    <img class="card-img-top blg-img" src="../media/images/default.jpg" alt="..">
                     {%endif %}
                     <div class="card-body p-4">
                         <a class="text-decoration-none link-dark stretched-link" href="{% url 'web:blog_detail' a.slug %}"><div class="h5 card-title mb-3">{{ a.title }}</div></a>

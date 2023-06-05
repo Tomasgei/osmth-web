@@ -215,3 +215,8 @@ button.accordion-button:hover{
     color: white;
 }
 
+.blg-img{
+    max-width: auto;
+    max-height: 15rem;
+    object-fit: cover;
+}
