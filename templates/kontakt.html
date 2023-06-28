@@ -23,24 +23,38 @@
       <h1 class="display-4 callout text-center py-4">Kontakt</h1>
       <div class="col-md-6 py-4">
         <!-- Bootstrap 5 starter form -->
-        <form id="contactForm">
+        <h2>Napište nám</h2>
+        <form method="post" id="contactForm">
+          {% csrf_token %}
 
           <!-- Name input -->
           <div class="mb-3">
             <label class="form-label" for="name">Jméno</label>
-            <input class="form-control" id="name" type="text" placeholder="Napište své jméno" />
+            {{ form.name }}
           </div>
 
           <!-- Email address input -->
           <div class="mb-3">
             <label class="form-label" for="emailAddress">Emailová adresa</label>
-            <input class="form-control" id="emailAddress" type="email" placeholder="Vyplňte prosím vaší emailovou adresu" />
+            {{ form.email }}
+          </div>
+
+          <!-- Phone input -->
+          <div class="mb-3">
+            <label class="form-label" for="emailAddress">Telefon</label>
+            {{ form.phone }}
+          </div>
+
+          <!-- Subject input -->
+          <div class="mb-3">
+            <label class="form-label" for="emailAddress">Předmět</label>
+            {{ form.subject }}
           </div>
 
           <!-- Message input -->
           <div class="mb-3">
             <label class="form-label" for="message">Text zprávy</label>
-            <textarea class="form-control" id="message" type="text" placeholder="Co máte na srdci?" style="height: 10rem;"></textarea>
+            {{ form.message }}
           </div>
 
           <!-- Form submit button -->
@@ -49,16 +63,19 @@
           </div>
         </form>
 
+
       </div>
       <div class="col-md-6 py-4 text-center">
         <img src="{% static '/img/znak řádu osmth.png' %}" class="logo-erb text-center" alt="...">
-        <h5 class="body-text">Ordo Supremus Militaris Templi Hierosolymitani Ctechi z.ú.</h5>
-        <p class=" body-text"> Londýnská 59, 120 00, Srbeč</p>
-        <p class=" body-text">Telefon: 734 254 433</p>
-        <p class=" body-text">Email: info@osmth.cz</p>
+        <h5 class="body-text">Ordo Supremus Militaris Templi Hierosolymitani</h5>
+        <p class=" body-text">Naměstí 1.Máje 56, 27062, Rynholec</p>
+        <p class=" body-text">Telefon: 774 70 70 70</p>
+        <p class=" body-text">Email: prioratus@osmth.cz</p>
         
       </div>
     </div>
   </div>
  
+
+
 {% endblock content %}

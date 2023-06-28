@@ -34,7 +34,7 @@ body{
 }
 .hero-image-box{
     background-color: rgb(83, 81, 81);
-    background-image: linear-gradient(to bottom, rgba(2, 2, 2, 0.158),rgba(0, 0, 0, 0.288), rgb(0, 0, 0)), url("../img/IMG_E3704.png");
+    background-image: linear-gradient(to bottom, rgba(2, 2, 2, 0.158),rgba(0, 0, 0, 0.288), rgb(0, 0, 0)), url("../img/web/templarsky_rad_uvod.webp");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -50,7 +50,7 @@ body{
 
 .contact-image-box{
     background-color: rgb(83, 81, 81);
-    background-image: linear-gradient(to bottom, rgba(2, 2, 2, 0.158),rgba(0, 0, 0, 0.288), rgb(0, 0, 0)), url("../img/IMG_3608.png");
+    background-image: linear-gradient(to bottom, rgba(2, 2, 2, 0.158),rgba(0, 0, 0, 0.288), rgb(0, 0, 0)), url("../img/web/templarsky_rad_srbec.webp");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -67,8 +67,9 @@ body{
 
 
 .logo-erb{
-    height:60% ;
-    width: 50%;
+    margin-top: 10%;
+    height:30% ;
+    width: auto;
     margin-bottom: 30px;
 
 }

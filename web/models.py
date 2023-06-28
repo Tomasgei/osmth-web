@@ -3,6 +3,7 @@ from django.urls import reverse
 from autoslug import AutoSlugField
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
+from django_resized import ResizedImageField
 
 class Article(models.Model):
     
@@ -18,7 +19,7 @@ class Article(models.Model):
     slug = AutoSlugField(populate_from = "title", unique_with="pub_date__month")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=options, default="draft")
-    image = models.ImageField(null=True, blank=True, upload_to="images/") 
+    image = ResizedImageField(force_format='WEBP',quality=75,null=True, blank=True, upload_to="images/") 
     content = models.TextField()
 
     def __str__(self):
@@ -36,3 +37,5 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
+    
+# class Message(models.Model):
