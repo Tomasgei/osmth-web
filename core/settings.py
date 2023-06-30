@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web',
+    'phone_field',
 ]
 
 MIDDLEWARE = [
@@ -159,10 +160,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 if DEBUG == True:
     #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-    EMAIL_HOST_USER = 'a3528c476ccfa5'
-    EMAIL_HOST_PASSWORD = '0751d7196904e2'
-    EMAIL_PORT = '2525'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = 'geissler.tomas@gmail.com'
+    EMAIL_HOST_PASSWORD = 'kgioleanjflpbhfw'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USE_TLS = True

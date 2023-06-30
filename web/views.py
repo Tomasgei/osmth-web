@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import send_mail, BadHeaderError
-from . models import Article,Event
+from . models import Article,Event,Contact
 from . forms import ContactForm
+from django.utils import timezone
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.contrib import messages
 
 
 def home_page(request):
@@ -20,15 +24,36 @@ def kontakt_page(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             
+            name = form.cleaned_data["name"]
             email = form.cleaned_data["email"]
+            phone = form.cleaned_data["phone"]
             subject = form.cleaned_data["subject"]
             message = form.cleaned_data["message"]
+            
+            contact = Contact(
+                    name = name,
+                    email = email,
+                    phone = phone,
+                    subject = subject,
+                    message = message,
+                    date = timezone.now()
+            )
+            contact.save()
+            messages.success(request, 'Vaše zpráva byla úspěšně odeslána.Odpovíme Vám v nejbližšší možné době')
             try:
+                html_message = render_to_string("../templates/email_templates/contact_reply.html", {"name":name,
+                                                                                                    "email":email,
+                                                                                                    "phone":phone,
+                                                                                                    "message":message,
+                                                                                                    })
+                plain_message = strip_tags(html_message)
+                to = ["x.zem@seznam.cz","geissler.tomas@gmail.com","prioratus@osmth.cz"]
                 send_mail( subject= subject,
-                          message=message, from_email=email, recipient_list=["x.zem@seznam.cz","geissler.tomas@gmail.com","prioratus@osmth.cz"])
+                          message=plain_message, from_email=email, recipient_list=to,html_message=html_message)
+                
             except BadHeaderError:
                 return HttpResponse("Invalid header found.")
-            return redirect("web:success")
+            pass
         
     context = {"form":form}
     return render(request, "kontakt.html",context)

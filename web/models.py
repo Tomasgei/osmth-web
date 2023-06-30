@@ -4,6 +4,7 @@ from autoslug import AutoSlugField
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django_resized import ResizedImageField
+from phone_field import PhoneField
 
 class Article(models.Model):
     
@@ -27,7 +28,7 @@ class Article(models.Model):
     
     def get_absolute_url(self):
         return reverse("web:blog_detail", kwargs={"slug": self.slug})
-    
+        
 class Event(models.Model):
     title = models.CharField(max_length=255,verbose_name=_("Event name"))
     event_date = models.DateField(verbose_name=_("Event date"))
@@ -38,4 +39,18 @@ class Event(models.Model):
     def __str__(self):
         return self.title
     
-# class Message(models.Model):
+class Contact(models.Model):
+    name = models.CharField(blank=False,null=False, max_length=50)
+    email = models.EmailField(blank=False,null=False,max_length=254)
+    subject = models.CharField(blank=False,null=False, max_length=255)
+    phone = PhoneField(blank=True,null=True, help_text="Contact phone number")
+    message = models.TextField(max_length=1500)
+    date = models.DateTimeField()
+    
+    def __str__(self):
+        return self.email
+
+##class Image(models.Model):
+##    name = models.CharField(max_length=255)
+##    article = models.ForeignKey(Article,on_delete=models.CASCADE)
+##    image = ResizedImageField(force_format='WEBP',quality=75,null=True, blank=True, upload_to="images/")
