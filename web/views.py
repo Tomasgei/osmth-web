@@ -1,20 +1,23 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import send_mail, BadHeaderError
-from . models import Article,Event,Contact
+from . models import Article,Event,Contact,ArticleImage,Album,Image
 from . forms import ContactForm
 from django.utils import timezone
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.contrib import messages
+from django.db.models import Q
 
 
 def home_page(request):
     articles = Article.objects.filter(status="published")[0:2]
     events = Event.objects.all()[0:3]
+    photos = Image.objects.filter(featured=True)[0:6]
     
     context = {"articles":articles,
-               "events":events}
+               "events":events,
+               "photos":photos,}
     return render(request, "homepage.html",context)
 
 def kontakt_page(request):
@@ -53,7 +56,7 @@ def kontakt_page(request):
                 
             except BadHeaderError:
                 return HttpResponse("Invalid header found.")
-            pass
+            return redirect("http://osmth.cz/kontakt/#kontakt")
         
     context = {"form":form}
     return render(request, "kontakt.html",context)
@@ -69,8 +72,14 @@ def signin_page(request):
 
 def blog_detail_page(request,slug):
     article = get_object_or_404(Article, slug=slug)
-    
-    context = {"article":article}
+    photos = ArticleImage.objects.filter(article=article)
+    articles = Article.objects.filter(~Q(slug=slug),status="published")[0:3]
+    #album = Album.objects.get(article=article)
+    #img = Image.objects.filter(album=album)
+    context = {"article":article,
+               "photos":photos,
+               "articles":articles,
+                 }
     return render(request, "blog_detail.html",context)
 
 def blog_page(request):

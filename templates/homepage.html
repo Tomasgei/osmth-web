@@ -19,19 +19,18 @@
   <!--circle logo  
   <div class="container" id="circle-logo">
   </div>-->
-
+  <section>
   <div class="container py-4 ">
-    <h1 class="display-4 callout text-center">Český Templářský Řád O.S.M.T.H</h1>
-    <p class="text-center body-text py-4">O.S.M.T.H. je zkratkou latinského názvu Ordo Supremus Militaris Templi Hierosolymitani 
-      česky  Svrchovaný Vojenský Řád Jeruzalémského Chrámu.
-      Templářský Řád je duchovním pokračovatelem středověkých Chudých Rytířů Krista a Šalamounova Chrámu – Templářů.
-      Po vzoru našich předků se snažíme o dokonalost a harmonii života jak po duchovní, tak po materiální stránce. Neboť ctíme zásadu „Jak nahoře tak dole a jak dole tak nahoře.” Nejsme součástí žádné církve, ale naše duchovní zaměření je křesťanské. Naše aktivity jsou vystavěny na třech základních pilířích, přičemž veškeré naše kroky jsou řízeny zásadou:
-
-      </p>
-      <h2 class="latin-text callout text-center">NON NOBIS DOMINE NON NOBIS SED NOMINI TUO DA GLORIAM</h2>
-      <hr class="latin">
-      <h2 class="latin-text callout text-center mb-3">NE NÁM PANE NE NÁM ALE SVÉMU JMÉNU DEJ SLÁVU</h2>
-    
+      <h1 class="display-4 callout text-center">Český Templářský Řád O.S.M.T.H</h1>
+        <p class="text-center body-text py-4">O.S.M.T.H. je zkratkou latinského názvu Ordo Supremus Militaris Templi Hierosolymitani 
+          česky  Svrchovaný Vojenský Řád Jeruzalémského Chrámu.
+          Templářský Řád je duchovním pokračovatelem středověkých Chudých Rytířů Krista a Šalamounova Chrámu – Templářů.
+          Po vzoru našich předků se snažíme o dokonalost a harmonii života jak po duchovní, tak po materiální stránce. Neboť ctíme zásadu „Jak nahoře tak dole a jak dole tak nahoře.” Nejsme součástí žádné církve, ale naše duchovní zaměření je křesťanské. Naše aktivity jsou vystavěny na třech základních pilířích, přičemž veškeré naše kroky jsou řízeny zásadou:
+          </p>
+        <h2 class="latin-text callout text-center">NON NOBIS DOMINE NON NOBIS SED NOMINI TUO DA GLORIAM</h2>
+          <hr class="latin">
+        <h2 class="latin-text callout text-center mb-3">NE NÁM, PANE, NE NÁM, ALE KU SLÁVĚ TVÉHO JMÉNA!</h2>
+  </section>
   </div>
   <section class="custom-bcg hodnoty py-10">
     <div class="container px-5 mb-4">
@@ -228,29 +227,26 @@
     </div>
   </div>
 </section>
-
+<section>
   <div class="custom-bcg py-4"> 
-  <div class="container bg-light mt-4 p-4">
-    <div class="row">
-
-      <div class="col-md">
-        <img src=" {% static '/img/web/osmth_clenove.webp' %}" class="img-fluid rounded shadow" alt="...">
-      </div>
-
-      <div class="col-md p-4 ">
-        <h3 class="display-5 callout py-4 px-3">Členství v Templářském Řádu</h3>
-        <p class="pb-3 px-3">Pokud Vás zaujaly naše hodnoty a naše pojetí života, pak se přidejte k nám a můžete s námi sdílet Templářský život. Jestliže vstoupíte mezi Templáře,dozvíte se více o struktuře Řádu a o tom jak pracujeme. Musíme vás však upozornit, že naše pojetí života, může být návykové a může vás pohltit natolik, že se stane stylem vašeho života jako se stalo nám. Členství v Řádu však není automatické a Řád si své členy vybírá. „Neboť mnoho je povolaných, ale málo je vyvolených“. (Mat. 22.14.) </p>
-        <div class="d-grid">
-          <button class="btn btn-danger custom-button shadow" type="button">Více o členství v řádu</button>
+    <div class="container bg-light mt-4 p-4">
+      <div class="row">
+        <div class="col-md">
+          <img src="{% static '/img/web/osmth_clenove.webp' %}" class="img-fluid rounded shadow" alt="...">
+        </div>
+        <div class="col-md p-4 ">
+          <h3 class="display-5 callout py-4 px-3">Členství v Templářském Řádu</h3>
+          <p class="pb-3 px-3">Pokud Vás zaujaly naše hodnoty a naše pojetí života, pak se přidejte k nám a můžete s námi sdílet Templářský život. Jestliže vstoupíte mezi Templáře,dozvíte se více o struktuře Řádu a o tom jak pracujeme. Musíme vás však upozornit, že naše pojetí života, může být návykové a může vás pohltit natolik, že se stane stylem vašeho života jako se stalo nám. Členství v Řádu však není automatické a Řád si své členy vybírá. „Neboť mnoho je povolaných, ale málo je vyvolených“. (Mat. 22.14.) </p>
+          <div class="d-grid">
+            <a class="btn btn-danger custom-button shadow" href="{% url "web:kontakt" %}"> Více o členství v řádu</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
+</section>
 <section class="bg-white py-10">
   <div class="container px-5">
-
       <div class="my-4 text-center"><h2 class="callout display-5">Na co se nás často ptáte</h2></div>
       <div class="accordion" id="accordionFaq">
           <div class="accordion-item">
@@ -309,6 +305,37 @@
         odmění. Duchovně ale i materiálně.</div></div>
     </div>  
   </div>
+  </div>
+</section>
+<section>
+<!-- Images used to open the lightbox -->
+<div class="container">
+  <h3 class="display-5 callout text-center py-4 px-3">Fotky z posledních akcí</h3>
+<div class="row">
+  {% for p in photos %}
+<div class="col-md-2 col-lg-4 p-1">
+  <div src="" onclick="openModal();currentSlide({{ forloop.counter }})" class="hover-shadow zoom rounded" style="width: 100%; height: 330px; background-color: white;
+  background: url({{ p.image.url }}) center center;
+  background-size: cover;"></div>
+</div>
+{% endfor %}
+
+<!-- The Modal/Lightbox -->
+<div id="myModal" class="modal">
+  <span class="close cursor" onclick="closeModal()">&times;</span>
+  <div class="modal-content">
+    {% for p in photos %}
+
+      <div class="mySlides">
+        <div class="numbertext">{{ forloop.counter }} / {{ photos.count }}</div>
+        <img src="{{p.image.url}}" class="img-fluid img-custom mx-auto d-block">
+      </div>
+    {% endfor %}
+
+    <!-- Next/previous controls -->
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
   </div>
 </section>
 {% endblock content %}

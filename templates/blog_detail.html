@@ -1,9 +1,89 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="container py-4 ">
-    <img src="{{ article.image.url }}" class="img-fluid mb-3" alt="...">
-    <h1 >{{article.title}}</h1>
-    <p>{{article.content}}</p>
+<div class="container py-4 mt-5 ">
+    <div class="row">
+        <div class="col-lg-8">
+            
+            <img src="{{ article.image.url }}" class="img-fluid rounded mb-3" alt="...">
+            <h1 class="display-5 callout  py-4 " >{{article.title}}</h1>
+            <p>{{article.pub_date}}</p>
+            <p>{{article.content}}</p>
+            
+            {% if article.video %}
+            <div class="my-4">
+            {% autoescape off %}
+            {{article.video |safe }}
+            {% endautoescape %}
+            </div>
+            {% endif %}
+        </div>
+        <!-- blog detail sidebar start -->
+        <div class="col-lg-4">
+            <h3 class="callout pb-4">Nejčtenější články</h3>
+            {% for a in articles %}
+              <div class="d-flex flex-grow-1 my-3">
+                
+                  <div src="" class="shadow-sm" style="min-width: 175px; height:90px; background-color: white;
+                  background: url({{ a.image.url }}) center center;
+                  background-size: cover;"></div>
+              
+                <div class="p-2  align-items-start">
+                  <a href="{% url 'web:blog_detail' slug=a.slug %}"><h5>{{a.title}}</h5></a>
+                  <small>{{a.pub_date}}</small>
+                </div>
+              </div>
+            {% endfor %}
+            <!--
+            <h3 class="callout py-4">Kalendář akcí</h3>
+            -->
+            <div class="list-group bg-light">
+                {% for e in events %}
+                <a href="#" class="list-group-item">
+                  <div class="col-md">
+                    <div class="event-date"> <span></span><p>{{e.event_date}}</p></div>
+                  </div>
+                  <h4 class="list-group-item-heading">{{e.title}}</h4>
+                  <p class="list-group-item-text ">{{e.content}}</p>
+                </a>
+                {% endfor %}  
+          </div>
+        </div>
+        <!-- blog detail sidebar end -->
+    </div>
 </div>
+
+{% if photos %}
+<section>
+  <!-- Images used to open the lightbox -->
+  <div class="container">
+    <h3 class="callout py-4">Fotky z akce</h3>
+  <div class="row">
+    {% for p in photos %}
+  <div class="col-sm-6 col-md-2 col-lg-2 p-1">
+    <div src="" onclick="openModal();currentSlide({{ forloop.counter }})" class="hover-shadow zoom rounded" style="width: 100%; height: 330px; background-color: white;
+    background: url({{ p.image.url }}) center center;
+    background-size: cover;"></div>
+  </div>
+  {% endfor %}
+  
+  <!-- The Modal/Lightbox -->
+  <div id="myModal" class="modal">
+    <span class="close cursor" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      {% for p in photos %}
+  
+        <div class="mySlides">
+          <div class="numbertext">{{ forloop.counter }} / {{ photos.count }}</div>
+          <img src="{{p.image.url}}" class="img-fluid img-custom mx-auto d-block">
+        </div>
+      {% endfor %}
+  
+      <!-- Next/previous controls -->
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  
+    </div>
+  </section>
+{% endif %}
 {% endblock content %}

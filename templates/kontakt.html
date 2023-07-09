@@ -19,7 +19,7 @@
   </div>-->
   <div class="container py-4 ">
     <div class="row">
-      <h1 class="display-4 callout text-center py-4">Kontakt</h1>
+      <h1 class="display-4 callout text-center py-4" id="kontakt">Kontakt</h1>
       {% if messages %}
       {% for message in messages %}
       <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
@@ -73,7 +73,7 @@
 
       </div>
       <div class="col-md-6 py-4 text-center">
-        <img src="{% static '/img/znak řádu osmth.png' %}" class="logo-erb text-center" alt="...">
+        <img src="{% static '/assets/images/znak řádu osmth.png' %}" class="logo-erb text-center" alt="...">
         <h5 class="body-text">Ordo Supremus Militaris Templi Hierosolymitani</h5>
         <p class=" body-text">Naměstí 1.Máje 56, 27062, Rynholec</p>
         <p class=" body-text">Telefon: 774 70 70 70</p>
