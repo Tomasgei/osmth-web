@@ -122,6 +122,11 @@ body{
     color: rgb(158, 3, 3);
 }
 
+.rel-link{
+    color: black;
+    text-decoration: none;
+}
+
 .custom-bcg{
     background-color:#F8F9FA;
 }
@@ -209,7 +214,7 @@ a.list-group-item:hover {
      color: white;
 }
 
-a.nav-link:hover{
+a.nav-cust-link:hover{
     border-bottom: 2px solid #b90918; 
 }
 
