@@ -1,0 +1,43 @@
+{% extends "intranet/base.html" %}
+{% block title %}Detail akce{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h1>{{ event.name }}</h1>
+    {% if event.image %}
+        <img src="{{ event.image.url }}" alt="{{ event.name }}" class="img-fluid mb-3">
+    {% endif %}
+    <p><strong>Místo:</strong> {{ event.location }}</p>
+    <p><strong>Čas:</strong> {{ event.date_time|date:"d.m.Y H:i" }}</p>
+    <p><strong>Popis:</strong> {{ event.description }}</p>
+    <p><strong>Organizátor:</strong> {{ event.organizer.username }}</p>
+    <p><strong>Kapacita:</strong> {{ event.participants.count }}/{{ event.capacity }}</p>
+
+    <h3 class="mt-4">Účastníci</h3>
+    <ul class="list-group">
+        {% for participant in participants %}
+        <li class="list-group-item d-flex align-items-center">
+            <img src="{{ participant.user.profile.photo.url }}" alt="Avatar" class="rounded-circle me-3" style="width: 40px; height: 40px;">
+            <div>
+                <strong>{{ participant.user.username }}</strong>
+                <small class="text-muted d-block">{{ participant.joined_at|date:"d.m.Y H:i" }}</small>
+            </div>
+            {% if participant.user == request.user %}
+                <form method="post" class="ms-auto">
+                    {% csrf_token %}
+                    <button type="submit" name="leave_event" class="btn btn-danger btn-sm">Zrušit účast</button>
+                </form>
+            {% endif %}
+        </li>
+        {% empty %}
+        <li class="list-group-item">Žádní účastníci.</li>
+        {% endfor %}
+    </ul>
+
+    {% if not user_participation %}
+        <form method="post" class="mt-3">
+            {% csrf_token %}
+            <button type="submit" name="join_event" class="btn btn-success">Potvrdit účast</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

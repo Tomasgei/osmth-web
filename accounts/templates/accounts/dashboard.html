@@ -1,0 +1,118 @@
+{% extends "intranet/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block css_block %}
+<style>
+    .dashboard-section {
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .dashboard-icon {
+        font-size: 40px;
+        color: #0d6efd;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Dashboard</h1>
+    <div class="row">
+        <!-- Sdílené dokumenty -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 dashboard-section">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="dashboard-icon bi bi-folder"></i>
+                        <h5 class="card-title ms-3">Sdílené dokumenty</h5>
+                    </div>
+                    <ul class="list-group">
+                        {% for document in shared_documents|slice:":3" %}
+                        <li class="list-group-item">
+                            <a href="{{ document.file.url }}" target="_blank">{{ document.name }}</a>
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item">Žádné dokumenty k zobrazení.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="card-footer text-end">
+                    <a href="#" class="btn btn-primary btn-sm">Zobrazit vše</a>
+                </div>
+            </div>
+        </div>
+        <!-- Zápisy z jednání -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 dashboard-section">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="dashboard-icon bi bi-journal"></i>
+                        <h5 class="card-title ms-3">Zápisy z jednání</h5>
+                    </div>
+                    <ul class="list-group">
+                        {% for record in meeting_records|slice:":3" %}
+                        <li class="list-group-item">
+                            {{ record.name }}
+                            <a href="{{ record.file.url }}" class="btn btn-outline-primary btn-sm float-end" download>Stáhnout</a>
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item">Žádné zápisy k zobrazení.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="card-footer text-end">
+                    <a href="#" class="btn btn-primary btn-sm">Zobrazit vše</a>
+                </div>
+            </div>
+        </div>
+        <!-- Plánované akce -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 dashboard-section">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="dashboard-icon bi bi-calendar-event"></i>
+                        <h5 class="card-title ms-3">Plánované akce</h5>
+                    </div>
+                    <ul class="list-group">
+                        {% for event in events|slice:":3" %}
+                        <li class="list-group-item">
+                            <a href="{% url "event_detail" event.pk   %}" target="_blank"><strong>{{ event.name }}</strong> - {{ event.date_time|date:"d.m.Y H:i" }}</a>
+                            
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item">Žádné akce k zobrazení.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="card-footer text-end">
+                    <a href="#" class="btn btn-primary btn-sm">Zobrazit vše</a>
+                </div>
+            </div>
+        </div>
+        <!-- Probíhající projekty -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 dashboard-section">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="dashboard-icon bi bi-kanban"></i>
+                        <h5 class="card-title ms-3">Probíhající projekty</h5>
+                    </div>
+                    <ul class="list-group">
+                        {% for project in ongoing_projects|slice:":3" %}
+                        <li class="list-group-item">
+                            <strong>{{ project.name }}</strong> - {{ project.status }}
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item">Žádné projekty k zobrazení.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="card-footer text-end">
+                    <a href="#" class="btn btn-primary btn-sm">Zobrazit vše</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

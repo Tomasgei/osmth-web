@@ -1,13 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import send_mail, BadHeaderError
-from . models import Article,Event,Contact,ArticleImage,Album,Image
-from . forms import ContactForm
+from .models import Article,Event,Contact,ArticleImage,Album,Image
+from .forms import ContactForm, LoginForm
 from django.utils import timezone
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.contrib import messages
 from django.db.models import Q
+from django.contrib.auth import authenticate, login
+
+from django.contrib.auth.decorators import login_required
+from accounts.models import Profile
+from accounts.forms import ProfileForm
+from django.http import JsonResponse
+
 
 
 def home_page(request):
@@ -65,11 +72,6 @@ def success_view(request):
     return HttpResponse("Succes! Thank you for your message.")
 
 
-def signin_page(request):
-    
-    context = {}
-    return render(request, "signin.html",context)
-
 def blog_detail_page(request,slug):
     article = get_object_or_404(Article, slug=slug)
     photos = ArticleImage.objects.filter(article=article)
@@ -87,5 +89,24 @@ def blog_page(request):
     
     context = {"articles":article}
     return render(request, "blog.html",context)
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('profile')  # Přesměrování na profil nebo jinou stránku
+            else:
+                messages.error(request, 'Neplatné přihlašovací údaje')
+    else:
+        form = LoginForm()
+    return render(request, 'signin.html', {'form': form})
+
+
 
 

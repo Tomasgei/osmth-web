@@ -1,0 +1,73 @@
+{% extends 'intranet/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <h1>Projektové výzvy</h1>
+    <button class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#addProjectModal">Přidat nový projekt</button>
+    <div class="row">
+        {% for project in projects %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                {% if project.image %}
+                    <img src="{{ project.image.url }}" alt="{{ project.name }}" class="project-image">
+                {% else %}
+                    <img src="https://via.placeholder.com/300x150" alt="Výchozí obrázek" class="project-image">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ project.name }}</h5>
+                    <p class="card-text">{{ project.description|truncatewords:20 }}</p>
+                    <p><strong>Stav:</strong> {{ project.get_status_display }}</p>
+                    <a href="{% url 'project_detail' project.id %}" class="btn btn-primary">Detail projektu</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Modal pro přidání projektu -->
+<div class="modal fade" id="addProjectModal" tabindex="-1" aria-labelledby="addProjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addProjectModalLabel">Přidat nový projekt</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zavřít"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addProjectForm" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Přidat projekt</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrušit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('addProjectForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+
+        fetch("{% url 'add_project' %}", {
+            method: "POST",
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                location.reload(); // Obnovte stránku po úspěšném přidání projektu
+            } else {
+                alert("Došlo k chybě při přidávání projektu.");
+            }
+        })
+        .catch(error => console.error("Chyba:", error));
+    });
+</script>
+{% endblock content %}

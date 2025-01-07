@@ -6,5 +6,6 @@
             "database": "${workspaceFolder:osmth-web}/db.sqlite3",
             "name": "osmth-loclhost"
         }
-    ]
+    ],
+    "sqltools.useNodeRuntime": true
 }

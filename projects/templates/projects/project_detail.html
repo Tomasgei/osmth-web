@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail projektu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>{{ project.name }}</h1>
+    <p><strong>Popis:</strong> {{ project.description }}</p>
+    <p><strong>Cíle:</strong> {{ project.objectives }}</p>
+    <p><strong>Požadované dovednosti:</strong> {{ project.skills_needed }}</p>
+    <p><strong>Stav:</strong> {{ project.get_status_display }}</p>
+    <p><strong>Vytvořeno:</strong> {{ project.created_at|date:"d.m.Y H:i" }}</p>
+
+    {% if request.user.is_superuser or project.created_by == request.user %}
+        <a href="{% url 'edit_project' project.id %}" class="btn btn-warning mt-3">Editovat projekt</a>
+    {% endif %}
+
+    <h3 class="mt-4">Komentáře</h3>
+    <ul class="list-group mb-4">
+        {% for comment in comments %}
+        <li class="list-group-item">
+            <strong>{{ comment.user.username }}</strong>: {{ comment.content }}
+            <span class="text-muted float-end">{{ comment.created_at|date:"d.m.Y H:i" }}</span>
+        </li>
+        {% empty %}
+        <li class="list-group-item">Zatím žádné komentáře.</li>
+        {% endfor %}
+    </ul>
+
+    <h4>Přidat komentář</h4>
+    <form method="post">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit" name="add_comment" class="btn btn-primary">Odeslat</button>
+    </form>
+
+    <h3 class="mt-4">Zapojení do projektu</h3>
+    {% if is_interested %}
+        <p class="text-success">Jste zapojen do tohoto projektu.</p>
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="express_interest" class="btn btn-success">Mám zájem</button>
+        </form>
+    {% endif %}
+
+    <a href="{% url 'project_list' %}" class="btn btn-secondary mt-4">Zpět na seznam projektů</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

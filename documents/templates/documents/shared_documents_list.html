@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Sdílené dokumenty</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Sdílené dokumenty</h1>
+
+    <h3>Obecné dokumenty</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Název</th>
+                <th>Nahráno dne</th>
+                <th>Akce</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for document in general_documents %}
+            <tr>
+                <td>{{ document.name }}</td>
+                <td>{{ document.uploaded_at|date:'d.m.Y H:i' }}</td>
+                <td>
+                    <a href="{{ document.file.url }}" class="btn btn-primary btn-sm" download>Stáhnout</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Zápisy z jednání</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Název</th>
+                <th>Nahráno dne</th>
+                <th>Akce</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for document in meeting_documents %}
+            <tr>
+                <td>{{ document.name }}</td>
+                <td>{{ document.uploaded_at|date:'d.m.Y H:i' }}</td>
+                <td>
+                    <a href="{{ document.file.url }}" class="btn btn-primary btn-sm" download>Stáhnout</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+{% extends "intranet/base.html" %}
+{% block title %}Připravované akce{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Připravované akce</h1>
+    <button class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#addEventModal">Vytvořit novou akci</button>
+
+    <div class="row">
+        {% for event in events %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                {% if event.image %}
+                    <img src="{{ event.image.url }}" alt="{{ event.name }}" class="card-img-top">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ event.name }}</h5>
+                    <p class="card-text">{{ event.description|truncatewords:20 }}</p>
+                    <p><strong>Místo:</strong> {{ event.location }}</p>
+                    <p><strong>Datum:</strong> {{ event.date_time|date:"d.m.Y H:i" }}</p>
+                    <a href="{% url 'event_detail' event.id %}" class="btn btn-primary">Detail akce</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Modal pro vytvoření nové akce -->
+<div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addEventModalLabel">Vytvořit novou akci</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zavřít"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addEventForm" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Vytvořit akci</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrušit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js_block %}
+<script>
+    document.getElementById('addEventForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+
+        fetch("{% url 'event_list' %}", {
+            method: "POST",
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                location.reload(); // Obnovte stránku po úspěšném přidání akce
+            } else {
+                alert("Došlo k chybě při přidávání akce.");
+            }
+        })
+        .catch(error => console.error("Chyba:", error));
+    });
+</script>
+{% endblock %}

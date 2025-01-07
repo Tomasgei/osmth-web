@@ -1,0 +1,57 @@
+{% load static %}
+{% block css_block %}
+<style>
+.navbar {
+    background-color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.navbar-logo {
+    height: 40px;
+}
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+</style>
+{% endblock %}
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Knights_Templar_Cross.svg" width="30" height="30" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "dashboard" %}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "project_list" %}">Projekty</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "event_list" %}">Akce</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Dokumenty</a>
+                </li>
+            </ul>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://surgassociates.com/wp-content/uploads/610-6104451_image-placeholder-png-user-profile-placeholder-image-png-1.jpg" alt="Avatar" class="avatar">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                    <li><a class="dropdown-item" href="{% url "profile" %}">Můj profil</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Odhlásit se</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

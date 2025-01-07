@@ -1,0 +1,181 @@
+{% extends "intranet/base.html" %}
+{% load static %}
+{% block title %}Profil uživatele{% endblock %}
+{% block css_block %}<style>
+    .profile-photo {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #dee2e6;
+    }
+    .list-group-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .pdf-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+    }
+</style>{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Sidebar Profile Section -->
+        <div class="col-md-4">
+            <div class="card text-center mb-3">
+                <div class="card-body">
+                    {% if profile.photo %}
+                        <img src="{{ profile.photo.url }}" alt="Profilová fotka" class="profile-photo">
+                    {% else %}
+                        <img src="https://via.placeholder.com/120" alt="Výchozí fotka" class="profile-photo">
+                    {% endif %}
+                    <h4 class="mt-3">{{ profile.user.username }}</h4>
+                    <p>{{ profile.get_role_display }}</p>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editProfileModal">Upravit profil</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Účast na akcích</h5>
+                    <canvas id="participationChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Section -->
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Informace o uživateli</h5>
+                    <p><strong>Email:</strong> {{ profile.user.email }}</p>
+                    <p><strong>Telefon:</strong> {{ profile.phone }}</p>
+                    <p><strong>Adresa:</strong> {{ profile.address }}</p>
+                    <p><strong>O sobě:</strong> {{ profile.bio }}</p>
+                </div>
+            </div>
+            <!-- Shared Documents Section -->
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Sdílené dokumenty</h5>
+                    <ul class="list-group">
+                        {% for document in shared_documents %}
+                        <li class="list-group-item">
+                            <a href="{{ document.file.url }}" target="_blank">
+                                <img src="{% static 'img/pdf-icon.png' %}" alt="PDF ikona" class="pdf-icon">
+                                {{ document.name }}
+                            </a>
+                            <span class="text-muted">{{ document.uploaded_at|date:"d.m.Y H:i" }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Zápisy ze schůzí</h5>
+                    <ul class="list-group">
+                        {% for record in meeting_records %}
+                        <li class="list-group-item">
+                            {{ record.name }}
+                            <a href="{{ record.file.url }}" class="btn btn-outline-primary btn-sm" download>Stáhnout</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfileModalLabel">Upravit profil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zavřít"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editProfileForm" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success">Uložit změny</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrušit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js_block %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Dummy data pro graf účasti na akcích
+    const participationData = {
+        labels: ['Účastněné akce', 'Neúčastněné akce'],
+        datasets: [{
+            label: 'Účast na akcích',
+            data: [10, 5], // Dummy hodnoty
+            backgroundColor: [
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(255, 99, 132, 0.6)'
+            ],
+            borderColor: [
+                'rgba(75, 192, 192, 1)',
+                'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    // Konfigurace grafu
+    const config = {
+        type: 'doughnut',
+        data: participationData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                }
+            }
+        }
+    };
+
+    // Inicializace grafu
+    const ctx = document.getElementById('participationChart').getContext('2d');
+    new Chart(ctx, config);
+
+    // AJAX pro uložení profilu
+    document.getElementById('editProfileForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Zabraňte běžnému odeslání formuláře
+
+        const form = e.target;
+        const formData = new FormData(form);
+
+        fetch("{% url 'profile_edit' %}", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload(); // Automatické obnovení stránky po úspěšném uložení
+            } else {
+                alert("Došlo k chybě při ukládání.");
+            }
+        })
+        .catch(error => {
+            console.error("Chyba:", error);
+        });
+    });
+</script>
+{% endblock %}
