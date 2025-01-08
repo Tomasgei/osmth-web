@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import ProfileForm
 from django.http import JsonResponse
@@ -11,12 +11,23 @@ from documents.models import SharedDocument
 from events.models import Event
 from .forms import ProfileForm
 from django.shortcuts import render
+from django.contrib import messages
 
 #MeetingRecord, Event, Project
 
 @login_required
 def profile_view(request):
     profile = request.user.profile
+
+    if request.method == 'POST':  # Zpracování dat z modalu
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profil byl úspěšně aktualizován.')  # Zpráva o úspěchu
+            return JsonResponse({'success': True})  # AJAX odpověď
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})  # Chyby z validace formuláře
+
     form = ProfileForm(instance=profile)
     shared_documents = SharedDocument.objects.all().order_by('-uploaded_at')  # Seřadit podle data přidání
     return render(request, 'accounts/profile.html', {
@@ -24,19 +35,6 @@ def profile_view(request):
         'form': form,
         'shared_documents': shared_documents
     })
-
-@login_required
-def profile_edit(request):
-    profile = request.user.profile
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=profile)  # request.FILES je klíčové
-        if form.is_valid():
-            form.save()
-            return redirect('profile')  # Přesměrování na profil
-    else:
-        form = ProfileForm(instance=profile)
-    return render(request, 'accounts/profile_edit.html', {'form': form})
-
 
 
 @login_required

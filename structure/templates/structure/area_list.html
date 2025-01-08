@@ -1,0 +1,17 @@
+{% extends "intranet/base.html" %}
+{% block title %}Seznam oblastí{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Seznam oblastí</h1>
+    <a href="{% url 'add_area' %}" class="btn btn-primary mb-3">Přidat oblast</a>
+    <ul class="list-group">
+        {% for area in areas %}
+        <li class="list-group-item">
+            <h5>{{ area.name }}</h5>
+            <p>{{ area.description }}</p>
+            <a href="{% url 'edit_area' area.id %}" class="btn btn-sm btn-warning">Upravit</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

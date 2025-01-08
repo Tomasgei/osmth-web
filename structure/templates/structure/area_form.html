@@ -1,0 +1,13 @@
+{% extends "intranet/base.html" %}
+{% block title %}Přidat/Upravit oblast{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>{% if area %}Upravit oblast{% else %}Přidat oblast{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Uložit</button>
+        <a href="{% url 'area_list' %}" class="btn btn-secondary">Zpět</a>
+    </form>
+</div>
+{% endblock %}

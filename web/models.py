@@ -7,6 +7,7 @@ from django_resized import ResizedImageField
 from phone_field import PhoneField
 from django.utils.html import mark_safe, format_html
 from sorl.thumbnail import get_thumbnail
+from django.conf import settings
 
 class Article(models.Model):
     
@@ -20,7 +21,7 @@ class Article(models.Model):
     pub_date = models.DateField( editable=True, verbose_name="Published date")
     updated = models.DateTimeField(auto_now=True)
     slug = AutoSlugField(populate_from = "title", unique_with="pub_date__month", editable=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=options, default="draft")
     image = ResizedImageField(force_format='WEBP',quality=75,null=True, blank=True, upload_to="images/") 
     content = models.TextField()

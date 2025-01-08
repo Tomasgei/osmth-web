@@ -30,24 +30,34 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url "dashboard" %}">Dashboard</a>
+                    <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url "project_list" %}">Projekty</a>
+                    <a class="nav-link" href="{% url 'project_list' %}">Projekty</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url "event_list" %}">Akce</a>
+                    <a class="nav-link" href="{% url 'event_list' %}">Akce</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Dokumenty</a>
                 </li>
+                {% if user.profile.is_k9 %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'area_list' %}">Oblasti</a>
+                </li>
+                {% endif %}
+                {% if user.profile.is_komtur %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'commandery_detail' %}">Moje komenda</a>
+                </li>
+                {% endif %}
             </ul>
             <div class="dropdown">
                 <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://surgassociates.com/wp-content/uploads/610-6104451_image-placeholder-png-user-profile-placeholder-image-png-1.jpg" alt="Avatar" class="avatar">
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-                    <li><a class="dropdown-item" href="{% url "profile" %}">Můj profil</a></li>
+                    <li><a class="dropdown-item" href="{% url 'profile' %}">Můj profil</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">Odhlásit se</a></li>
                 </ul>

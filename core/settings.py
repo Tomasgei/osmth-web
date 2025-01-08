@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web',
+    'structure',
     'accounts',
     'documents',
     'events',
@@ -104,8 +105,8 @@ else:
     }
 }
     
-    
-    
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
 
 
 
